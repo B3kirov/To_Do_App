@@ -1,0 +1,51 @@
+{% extends 'todo_app/base.html' %}
+{% block title %}
+  Home
+{% endblock title %}
+{% block content %}
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4"><center>TO-DO</center></h1>
+      <p class="lead"><center>This is TO-DO list for you</center></p>
+      <div class="text-center">
+          <a href="{% url 'create' %}" class="btn btn-outline-success" role="button" aria-pressed="true">Create TO-DO list</a>
+      </div>
+    </div>
+  </div>
+<div class="container"> 
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">To-Do list</th>
+      <th scope="col">is Finished?</th>
+      <th scope="col">Date and Time</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Update</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for todo in todo_list %}
+      {% if todo.finished %}
+        <tr>
+          <td><del>{{ todo.title }}</del></td>
+          <td><a class="btn btn-info" href="{% url 'yes_finish' todo.id %}" role="button" >Yes</a></td>
+          <td>{{ todo.date }}</td>
+          <td><a class="btn btn-danger" href="{% url 'delete' todo.id %}" role="button" >Delete</a></td>
+          <td><a class="btn btn-warning" href="{% url 'update' todo.id %}" role="button" >Update</a></td>
+      {% else %}
+         <tr>
+          <td>{{ todo.title }}</td>
+          <td><a class="btn btn-dark" href="{% url 'no_finish' todo.id %}" role="button" >No</a></td>
+          <td>{{ todo.date }}</td>
+          <td><a class="btn btn-danger" href="{% url 'delete' todo.id %}" role="button" >Delete</a></td>
+          <td><a class="btn btn-warning" href="{% url 'update' todo.id %}" role="button" >Update</a></td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+</div> 
+
+
+
+{% endblock content %}
